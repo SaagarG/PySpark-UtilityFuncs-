@@ -1,0 +1,32 @@
+from pyspark.sql import SparkSession
+
+def create_spark_session(app_name):
+    """
+    Create a Spark session with additional configuration to handle uncaught exceptions.
+    """
+    spark_session = SparkSession.builder \
+        .appName(app_name) \
+        .config("spark.driver.extraJavaOptions", "-XX:-UseGCOverheadLimit") \
+        .config("spark.sql.execution.arrow.enabled", "true") \
+        .config("spark.debug.maxToStringFields", 100) \
+        .config("spark.executor.heartbeatInterval", "200000") \
+        .config("spark.network.timeout", "300000") \
+        .getOrCreate()
+    return spark_session
+
+# Main code
+try:
+    # Create a Spark session.
+    spark = create_spark_session("ReadFromFileFTP")
+
+    # Your code to read from FTP and process data
+    ds = read_file_from_ftp(spark, "tbl_Lookup_Months.csv")
+    ds.show()
+
+except Exception as e:
+    print("An Error occurred:", str(e))
+
+finally:
+    # Stop the Spark session
+    if spark:
+        spark.stop()
