@@ -1,0 +1,13 @@
+def read_file_from_ftp(spark, ftp_server, file_path, file_format='csv', sep='\t', username=None, password=None):
+    # Define FTP URL
+    ftp_url = f"ftp://{username}:{password}@{ftp_server}/{file_path}"
+
+    # Read file based on format
+    if file_format.lower() == 'csv':
+        df = spark.read.csv(ftp_url, header=True, inferSchema=True)
+    elif file_format.lower() == 'tsv' or file_format.lower() == 'tab':
+        df = spark.read.csv(ftp_url, sep=sep, header=True, inferSchema=True)
+    else:
+        raise ValueError("Unsupported file format. Supported formats: 'csv', 'tsv' or 'tab'.")
+
+    return df
