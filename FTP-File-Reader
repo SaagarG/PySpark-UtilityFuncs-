@@ -11,12 +11,17 @@ def read_file_from_ftp(spark, ftp_server, file_path, file_format='csv', sep='\t'
         raise ValueError("Unsupported file format. Supported formats: 'csv', 'tsv' or 'tab'.")
 
     return df
-
+------------------------------------------------------------------------------------------------------------------------------
 %livy2.pyspark
 
-spark = SparkSession.builder.appName("ReadFileFromFTP4").getOrCreate()
+try :
+     spark = SparkSession.builder.appName("ReadFileFromFTP").getOrCreate()
 
-ds = read_file_from_ftp(spark, "tbl_Lookup_Months.csv")
-ds.show()
+     ds = read_file_from_ftp(spark, "tbl_Lookup_Months.csv")
+     ds.show()
 
-spark.stop()
+except Exception as e :
+     print("An Error occured:", str(e))
+     
+finally :
+     spark.stop()
