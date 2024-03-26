@@ -30,3 +30,8 @@ finally:
     # Stop the Spark session
     if spark:
         spark.stop()
+
+
+# To get a specific configuration value by key
+value = spark.sparkContext.getConf().get('spark.executor.memory')
+print(f'spark.executor.memory: {value}')
