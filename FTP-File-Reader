@@ -35,7 +35,7 @@ with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
 -----------------------------------
 
 file_path = f"/HedgingTbls/TBL_2_Archive_SAPExtract.txt"
-ftp = ftplib.FTP(host="emft-vfs.uk.centricaplc.com", user="sashad02vfs", passwd="YXfGRu6G")  # setting up the ftp connection
+ftp = ftplib.FTP(host="emft-xxxxxxx.com", user="yyyy", passwd="zzzz")  # setting up the ftp connection
 file = BytesIO()
 
 ftp.retrbinary('RETR ' + file_path, file.write, 1024)
