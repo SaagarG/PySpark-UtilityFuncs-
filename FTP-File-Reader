@@ -32,3 +32,25 @@ with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
     tmp_file.write(data)
     tmp_file_path = tmp_file.name
 
+-----------------------------------
+
+file_path = f"/HedgingTbls/TBL_2_Archive_SAPExtract.txt"
+ftp = ftplib.FTP(host="emft-vfs.uk.centricaplc.com", user="sashad02vfs", passwd="YXfGRu6G")  # setting up the ftp connection
+file = BytesIO()
+
+ftp.retrbinary('RETR ' + file_path, file.write, 1024)
+file.seek(0)
+
+with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+     tmp_file.write(file)
+     tmp_file_path = tmp_file.name
+
+
+# Read file based on format
+df = spark.read.csv(tmp_file_path, sep="\t", \
+                    header=True, \
+                    encoding = "UTF-8", \
+                    inferSchema = True)
+                    #na_values = na_values)
+                    
+df.printSchema()
