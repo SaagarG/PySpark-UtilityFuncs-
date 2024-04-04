@@ -54,3 +54,6 @@ df = spark.read.csv(tmp_file_path, sep="\t", \
                     #na_values = na_values)
                     
 df.printSchema()
+-----------------------------------------
+
+ Archive.select(to_date(col('Sale_Dt'), 'd/M/yyyy').alias('Sale_Dt').cast('date'))
