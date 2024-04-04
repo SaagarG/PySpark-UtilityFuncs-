@@ -63,3 +63,10 @@ df.printSchema()
 df_converted = df.select(
     *[to_date(col(col_name), date_format).alias(col_name).cast('date') if col_name in columns_to_convert else col(col_name) for col_name in df.columns]
 )
+
+----------------------------------------------
+
+new_columns = [col.replace(' ', '_') for col in df.columns]
+df_renamed = df
+for old_col, new_col in zip(df.columns, new_columns):
+    df_renamed = df_renamed.withColumnRenamed(old_col, new_col)
