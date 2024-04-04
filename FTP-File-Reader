@@ -57,3 +57,9 @@ df.printSchema()
 -----------------------------------------
 
  Archive.select(to_date(col('Sale_Dt'), 'd/M/yyyy').alias('Sale_Dt').cast('date'))
+
+----------------------------------------------
+
+df_converted = df.select(
+    *[to_date(col(col_name), date_format).alias(col_name).cast('date') if col_name in columns_to_convert else col(col_name) for col_name in df.columns]
+)
