@@ -25,3 +25,10 @@ except Exception as e :
      
 finally :
      spark.stop()
+
+----------------------------------
+
+with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+    tmp_file.write(data)
+    tmp_file_path = tmp_file.name
+
