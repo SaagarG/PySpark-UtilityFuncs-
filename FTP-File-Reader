@@ -102,3 +102,16 @@ tree.write(output_soap_file, xml_declaration=True, encoding='utf-8', method="xml
 
 print(f"SOAP message file '{output_soap_file}' has been updated.")
 
+--------------
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:con="http://example.com">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <con:CreateAgreement>
+            <con:obj>
+                <con:Element1>OldValue1</con:Element1>
+                <con:Element2>OldValue2</con:Element2>
+            </con:obj>
+        </con:CreateAgreement>
+    </soapenv:Body>
+</soapenv:Envelope>
