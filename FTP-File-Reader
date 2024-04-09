@@ -70,3 +70,35 @@ new_columns = [col.replace(' ', '_') for col in df.columns]
 df_renamed = df
 for old_col, new_col in zip(df.columns, new_columns):
     df_renamed = df_renamed.withColumnRenamed(old_col, new_col)
+
+
+--------------------------------------------------
+
+import xml.etree.ElementTree as ET
+
+# Step 1: Parse the SOAP Message File and Register Namespaces
+soap_file = 'soap_message.xml'
+tree = ET.parse(soap_file)
+root = tree.getroot()
+
+# Register namespaces
+namespaces = {
+    'soapenv': 'http://schemas.xmlsoap.org/soap/envelope/',
+    'con': 'http://example.com'
+}
+for prefix, uri in namespaces.items():
+    ET.register_namespace(prefix, uri)
+
+# Step 2: Update the Values under Selected Tags
+for elem in root.findall('.//con:Element1', namespaces):
+    elem.text = 'NewValue1'
+
+for elem in root.findall('.//con:Element2', namespaces):
+    elem.text = 'NewValue2'
+
+# Step 3: Save the Updated SOAP Message File
+output_soap_file = 'updated_soap_message.xml'
+tree.write(output_soap_file, xml_declaration=True, encoding='utf-8', method="xml")
+
+print(f"SOAP message file '{output_soap_file}' has been updated.")
+
