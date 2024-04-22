@@ -113,5 +113,13 @@ print(f"SOAP message file '{output_soap_file}' has been updated.")
                 <con:Element2>OldValue2</con:Element2>
             </con:obj>
         </con:CreateAgreement>
+
+
+<ItemGroup>
+  <None Include="Reference.svcmap">
+    <Generator>MSBuild:Compile</Generator>
+    <LastGenOutput>Reference.cs</LastGenOutput>
+  </None>
+</ItemGroup>
     </soapenv:Body>
 </soapenv:Envelope>
